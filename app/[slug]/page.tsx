@@ -2,12 +2,14 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-interface PageProps {
+interface Props {
   params: { slug: string };
 }
 
-export default async function PostPage({ params }: PageProps) {
-  const post = await prisma.post.findUnique({ where: { slug: params.slug } });
+export default async function PostPage({ params }: Props) {
+  const post = await prisma.post.findUnique({
+    where: { slug: params.slug },
+  });
 
   if (!post) return <div>Post not found</div>;
 
@@ -18,4 +20,5 @@ export default async function PostPage({ params }: PageProps) {
     </article>
   );
 }
+
 
