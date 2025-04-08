@@ -1,5 +1,3 @@
-// app/[slug]/page.tsx
-
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -24,5 +22,14 @@ export default async function PostPage({ params }: Props) {
     </article>
   );
 }
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+    const posts = await prisma.post.findMany({
+      select: { slug: true },
+    });
+  
+    return posts.map((post) => ({ slug: post.slug }));
+  }
+  
 
 
