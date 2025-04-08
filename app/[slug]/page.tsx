@@ -1,10 +1,14 @@
+// app/[slug]/page.tsx
+
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-interface Props {
-  params: { slug: string };
-}
+type Props = {
+  params: {
+    slug: string;
+  };
+};
 
 export default async function PostPage({ params }: Props) {
   const post = await prisma.post.findUnique({
