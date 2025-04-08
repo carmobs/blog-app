@@ -2,7 +2,13 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function PostPage({ params }: PageProps) {
   const post = await prisma.post.findUnique({ where: { slug: params.slug } });
 
   if (!post) return <div>Post not found</div>;
